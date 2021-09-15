@@ -84,8 +84,8 @@ metadata:
   name: mlflow-xyzab
   namespace: hub
   annotations:
-	  phapplication.primehub.io/template: '<json of app template>'
-	  phapplication.primehub.io/template-data: '<json of app template>'
+    phapplication.primehub.io/template: '<json of app template>'
+    phapplication.primehub.io/template-data: '<json of app template>'
 spec:
   stop: false
   displayName: "My MLflow"
@@ -121,10 +121,10 @@ spec:
   svcTemplate:
     spec:
       ports:
-		  - name: http
-		    port: 5000
-		    protocol: TCP
-		    targetPort: 5000
+      - name: http
+        port: 5000
+        protocol: TCP
+        targetPort: 5000
   httpPort: 5000
 status:
   phase: "Ready"
@@ -159,7 +159,7 @@ spec:
   version:
   docLink:
   icon: <url to icon or data-uri>
-	defaultEnvs:
+  defaultEnvs:
   - name: BACKEND_STORE_URI
     description: ""
     defaultValue: "sqlite://$(PRIMEHUB_APP_ROOT)/mlflow.db"
