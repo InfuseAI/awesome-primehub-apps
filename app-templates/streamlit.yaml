@@ -20,7 +20,7 @@ spec:
         spec:
           containers:
           - name: streamlit
-            image: infuseai/streamlit:v0.79.0
+            image: infuseai/streamlit:v1.2.0
             command:
             - bash
             - -c
@@ -45,4 +45,4 @@ spec:
             protocol: TCP
             targetPort: 8501
       httpPort: 8501
-  version: v0.79.0
+  version: v1.2.0
