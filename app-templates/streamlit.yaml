@@ -20,7 +20,7 @@ spec:
         spec:
           containers:
           - name: streamlit
-            image: infuseaidev/streamlit:v1.9.2
+            image: infuseai/primehub-apps:mlflow-server-v1.9.2
             command:
             - bash
             - -c
