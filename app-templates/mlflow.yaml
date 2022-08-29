@@ -25,7 +25,7 @@ spec:
         spec:
           containers:
           - name: mlflow
-            image: infuseaidev/mlflow-server:v1.26.1
+            image: infuseai/primehub-apps:mlflow-server-v1.26.1
             command:
             - bash
             - -c

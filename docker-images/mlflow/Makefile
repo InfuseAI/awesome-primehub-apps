@@ -1,6 +1,6 @@
-VERSION := v1.26.1
-IMAGE_NAME_BASE=mlflow-server
-IMAGE_BASE=infuseaidev/${IMAGE_NAME_BASE}
+VERSION := mlflow-server-v1.26.1
+IMAGE_NAME_BASE=primehub-apps
+IMAGE_BASE=infuseai/${IMAGE_NAME_BASE}
 
 build:
 	docker build . -t ${IMAGE_BASE}:${VERSION}
