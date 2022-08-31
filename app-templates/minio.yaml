@@ -1,0 +1,57 @@
+apiVersion: primehub.io/v1alpha1
+kind: PhAppTemplate
+metadata:
+  name: minio
+  namespace: hub
+  annotations:
+    helm.sh/hook: post-install, post-upgrade
+spec:
+  defaultEnvs:
+  - defaultValue: miniorootadmin
+    description: Minio root admin
+    name: MINIO_ROOT_USER
+    optional: false
+  - defaultValue: miniorootpassword
+    description: Minio root password
+    name: MINIO_ROOT_PASSWORD
+    optional: false
+  description: MinIO is a High Performance Object Storage. It is API compatible with Amazon S3 cloud storage service. 
+  docLink: https://docs.min.io/
+  icon: data:image/png;base64,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
+  name: Minio
+  template:
+    spec:
+      podTemplate:
+        spec:
+          containers:
+          - name: minio
+            image: minio/minio:RELEASE.2022-08-26T19-53-15Z
+            command:
+            - bash
+            - -c
+            args:
+            - export MINIO_BROWSER_REDIRECT_URL=$(PRIMEHUB_URL)$(PRIMEHUB_APP_BASE_URL);
+              export CONSOLE_SUBPATH=$(PRIMEHUB_APP_BASE_URL);
+              mkdir $(PRIMEHUB_APP_ROOT)/minio/;
+              /usr/bin/docker-entrypoint.sh server $(PRIMEHUB_APP_ROOT)/minio/ --console-address ":9001"
+            ports:
+            - containerPort: 9000
+              name: api
+              protocol: TCP
+            - containerPort: 9001
+              name: console
+              protocol: TCP
+      svcTemplate:
+        spec:
+          ports:
+          - name: api
+            port: 9000
+            protocol: TCP
+            targetPort: 9000
+          - name: console
+            port: 9001
+            protocol: TCP
+            targetPort: 9001
+      httpPort: 9001
+      rewrite: true
+  version: v2022-08-26-release
