@@ -1,4 +1,4 @@
-VERSION := mlflow-server-v1.9.2
+VERSION := streamlit-v1.12.2
 IMAGE_NAME_BASE=primehub-apps
 IMAGE_BASE=infuseai/${IMAGE_NAME_BASE}
 
