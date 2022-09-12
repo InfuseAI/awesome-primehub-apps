@@ -20,7 +20,7 @@ spec:
         spec:
           containers:
           - name: streamlit
-            image: infuseai/streamlit:v1.2.0
+            image: infuseai/primehub-apps:streamlit-v1.12.2
             command:
             - bash
             - -c
@@ -45,4 +45,4 @@ spec:
             protocol: TCP
             targetPort: 8501
       httpPort: 8501
-  version: v1.2.0
+  version: v1.12.2
