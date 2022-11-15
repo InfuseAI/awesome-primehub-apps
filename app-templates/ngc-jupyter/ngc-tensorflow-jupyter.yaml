@@ -1,0 +1,41 @@
+apiVersion: primehub.io/v1alpha1
+kind: PhAppTemplate
+metadata:
+  name: ngc-tensorflow
+  annotations:
+    helm.sh/hook: post-install, post-upgrade
+spec:
+  name: ngc-tensorflow
+  description: NVIDIA try to optimize the tensorflow NGC for GPU acceleration. We can accelerate the ETL, training and inference pipeline workflow in this jupyter image.
+  version: v22.10.1
+  docLink: https://catalog.ngc.nvidia.com/orgs/nvidia/containers/tensorflow
+  icon: https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/https://s3.amazonaws.com/coursera-course-photos/51/6d31a64dad46d08a076ef7abbf4f15/external-content.duckduckgo.com.jpg?auto=format%2Ccompress&dpr=1&w=330&h=330&fit=fill&q=25
+  template:
+    spec:
+      podTemplate:
+        spec:
+          containers:
+          - name: ngc-tensorflow
+            image: infuseai/primehub-apps:ngc-tensorflow-jupyter-22.10.1-tf2-py3
+            command:
+            - bash
+            - -c
+            args:
+            - |
+              jupyter lab --allow-root --config=/jupyter_notebook_config.py \
+              --NotebookApp.allow_origin=${PRIMEHUB_URL} \
+              --NotebookApp.token='' --ip 0.0.0.0 --NotebookApp.base_url=$(PRIMEHUB_APP_BASE_URL) \
+              --NotebookApp.notebook_dir=/project/${PRIMEHUB_GROUP}
+              --NotebookApp.webapp_settings static_url_prefix=$(PRIMEHUB_APP_BASE_URL)/static/
+            ports:
+            - containerPort: 8888
+              name: http
+              protocol: TCP
+      svcTemplate:
+        spec:
+          ports:
+          - name: http
+            port: 8888
+            protocol: TCP
+            targetPort: 8888
+      httpPort: 8888
