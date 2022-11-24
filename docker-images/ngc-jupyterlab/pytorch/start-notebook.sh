@@ -18,5 +18,9 @@ if [[ "${RESTARTABLE}" == "yes" ]]; then
     wrapper="run-one-constantly"
 fi
 
+mkdir $(pwd)/ngc-example/
+ln -fsv /workspace $(pwd)/ngc-example/
+rm -rf $(pwd)/work/
+
 # shellcheck disable=SC1091,SC2086
 exec /usr/local/bin/start.sh ${wrapper} jupyter ${DOCKER_STACKS_JUPYTER_CMD} ${NOTEBOOK_ARGS} "$@"
