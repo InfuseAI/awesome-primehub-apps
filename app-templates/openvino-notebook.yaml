@@ -21,7 +21,16 @@ spec:
             - bash
             - -c
             args:
-            - export SHELL=/bin/bash; jupyter lab --config=/opt/app-root/etc/jupyter_server_config.py --NotebookApp.allow_origin=${PRIMEHUB_URL} --ip 0.0.0.0 --NotebookApp.base_url=$(PRIMEHUB_APP_BASE_URL) --NotebookApp.notebook_dir=${PRIMEHUB_APP_ROOT} --NotebookApp.token=""
+            - |
+              export SHELL=/bin/bash;\
+              PRIMEHUB_GROUP_LOWER="$(tr [A-Z] [a-z] <<< "$PRIMEHUB_GROUP")"; \
+              ln -fsv /project/$PRIMEHUB_GROUP_LOWER $(pwd); \
+              ln -fsv /phfs $(pwd); \
+              ln -fsv /datasets $(pwd); \
+              jupyter lab --config=/opt/app-root/etc/jupyter_server_config.py \
+              --NotebookApp.allow_origin=${PRIMEHUB_URL} --ip 0.0.0.0 \
+              --NotebookApp.base_url=$(PRIMEHUB_APP_BASE_URL) \
+              --NotebookApp.token=""
             ports:
             - containerPort: 8888
               name: http
