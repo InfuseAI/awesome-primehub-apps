@@ -1,4 +1,4 @@
-VERSION := streamlit-v1.12.2
+VERSION := streamlit-v1.37.0
 IMAGE_NAME_BASE=primehub-apps
 IMAGE_BASE=infuseai/${IMAGE_NAME_BASE}
 
