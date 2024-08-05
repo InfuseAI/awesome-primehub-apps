@@ -1,0 +1,43 @@
+apiVersion: primehub.io/v1alpha1
+kind: PhAppTemplate
+metadata:
+  name: ngc-rapids-notebooks-24.06-cuda-12.2-py-3.11
+  namespace: hub
+  annotations:
+    helm.sh/hook: post-install, post-upgrade
+spec:
+  name: NGC RAPIDS Notebooks (CUDA 12.2)
+  version: 24.06-cuda12.2-py3.11
+  description: The RAPIDS suite of software libraries gives you the freedom to execute end-to-end data science and analytics pipelines entirely on GPUs.
+  docLink: https://catalog.ngc.nvidia.com/orgs/nvidia/teams/rapidsai/containers/notebooks
+  icon: data:image/png;base64,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
+  template:
+    spec:
+      podTemplate:
+        spec:
+          containers:
+          - name: ngc-rapids-notebooks
+            image: nvcr.io/nvidia/rapidsai/notebooks:24.06-cuda12.2-py3.11
+            command:
+            - bash
+            - -c
+            args:
+            - |
+              export PRIMEHUB_GROUP_LOWER="$(tr [A-Z] [a-z] <<< "$PRIMEHUB_GROUP")"; \
+              ln -frsv /project/$PRIMEHUB_GROUP_LOWER $HOME; \
+              ln -fsv /phfs $HOME; \
+              ln -fsv /datasets $HOME; \
+              jupyter lab --allow-root --ServerApp.allow_origin=${PRIMEHUB_URL} --ServerApp.terminado_settings="shell_command=['/bin/bash']" \
+              --IdentityProvider.token='' --ip 0.0.0.0 --ServerApp.base_url=$(PRIMEHUB_APP_BASE_URL);
+            ports:
+            - containerPort: 8888
+              name: http
+              protocol: TCP
+      svcTemplate:
+        spec:
+          ports:
+          - name: http
+            port: 8888
+            protocol: TCP
+            targetPort: 8888
+      httpPort: 8888
