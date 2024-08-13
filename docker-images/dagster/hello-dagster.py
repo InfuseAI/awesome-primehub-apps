@@ -1,25 +1,34 @@
+import json
+
 import pandas as pd
 import requests
 
-from dagster import MetadataValue, Output, asset
+from dagster import Config, MaterializeResult, MetadataValue, asset
+
+
+class HNStoriesConfig(Config):
+    top_stories_limit: int = 10
+    hn_top_story_ids_path: str = "hackernews_top_story_ids.json"
+    hn_top_stories_path: str = "hackernews_top_stories.csv"
 
 
 @asset
-def hackernews_top_story_ids():
-    """Get top stories from the HackerNews top stories endpoint.
-
-    API Docs: https://github.com/HackerNews/API#new-top-and-best-stories.
-    """
+def hackernews_top_story_ids(config: HNStoriesConfig):
+    """Get top stories from the HackerNews top stories endpoint."""
     top_story_ids = requests.get(
         "https://hacker-news.firebaseio.com/v0/topstories.json"
     ).json()
-    return top_story_ids[:10]
+
+    with open(config.hn_top_story_ids_path, "w") as f:
+        json.dump(top_story_ids[: config.top_stories_limit], f)
 
 
-# asset dependencies can be inferred from parameter names
-@asset
-def hackernews_top_stories(hackernews_top_story_ids):
+@asset(deps=[hackernews_top_story_ids])
+def hackernews_top_stories(config: HNStoriesConfig) -> MaterializeResult:
     """Get items based on story ids from the HackerNews items endpoint."""
+    with open(config.hn_top_story_ids_path, "r") as f:
+        hackernews_top_story_ids = json.load(f)
+
     results = []
     for item_id in hackernews_top_story_ids:
         item = requests.get(
@@ -28,11 +37,11 @@ def hackernews_top_stories(hackernews_top_story_ids):
         results.append(item)
 
     df = pd.DataFrame(results)
+    df.to_csv(config.hn_top_stories_path)
 
-    # recorded metadata can be customized
-    metadata = {
-        "num_records": len(df),
-        "preview": MetadataValue.md(df[["title", "by", "url"]].to_markdown()),
-    }
-
-    return Output(value=df, metadata=metadata)
+    return MaterializeResult(
+        metadata={
+            "num_records": len(df),
+            "preview": MetadataValue.md(str(df[["title", "by", "url"]].to_markdown())),
+        }
+    )
