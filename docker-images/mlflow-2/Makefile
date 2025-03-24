@@ -1,4 +1,4 @@
-VERSION := mlflow-server-v2.15.0
+VERSION := mlflow-server-v2.20.3
 IMAGE_NAME_BASE=primehub-apps
 IMAGE_BASE=infuseai/${IMAGE_NAME_BASE}
 
